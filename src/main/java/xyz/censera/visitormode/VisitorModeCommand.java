@@ -54,7 +54,7 @@ final class VisitorModeCommand implements CommandExecutor, TabCompleter {
         Set<UUID> visitors = plugin.getRegistry().snapshot();
 
         if (visitors.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + "No visitors are currently online");
+            sender.sendMessage(ChatColor.GOLD + "No visitors are currently online");
             return;
         }
 
@@ -65,14 +65,14 @@ final class VisitorModeCommand implements CommandExecutor, TabCompleter {
         }
 
         sender.sendMessage(ChatColor.GOLD + "Online visitors (" + visitors.size() + "): "
-                + ChatColor.WHITE + String.join(", ", names));
+                + ChatColor.GRAY + String.join(", ", names));
     }
 
     private void handleKickVisitors(CommandSender sender) {
         Set<UUID> visitors = plugin.getRegistry().snapshot();
 
         if (visitors.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + "No visitors to kick");
+            sender.sendMessage(ChatColor.GOLD + "No visitors to kick");
             return;
         }
 
@@ -108,15 +108,15 @@ final class VisitorModeCommand implements CommandExecutor, TabCompleter {
 
     private void sendUsage(CommandSender sender) {
         sender.sendMessage(ChatColor.GOLD + "Censera's Eye administration:");
-        sender.sendMessage(ChatColor.YELLOW + "  /eyec reload" + ChatColor.GRAY + " to reload configuration");
-        sender.sendMessage(ChatColor.YELLOW + "  /eyec list" + ChatColor.GRAY + " to list online visitors");
-        sender.sendMessage(ChatColor.YELLOW + "  /eyec kick-visitors" + ChatColor.GRAY + " to kick all online visitors");
+        sender.sendMessage(ChatColor.GOLD + "  /eyec reload" + ChatColor.GRAY + " to reload configuration");
+        sender.sendMessage(ChatColor.GOLD + "  /eyec list" + ChatColor.GRAY + " to list online visitors");
+        sender.sendMessage(ChatColor.GOLD + "  /eyec kick-visitors" + ChatColor.GRAY + " to kick all online visitors");
         sender.sendMessage(ChatColor.GOLD + "Visitor utilities:");
-        sender.sendMessage(ChatColor.YELLOW + "  /guest unstuck" + ChatColor.GRAY + " is teleport to bed spawn or world spawn");
-        sender.sendMessage(ChatColor.YELLOW + "  /guest nudge" + ChatColor.GRAY + " is teleport 10 blocks upward (30s cooldown)");
+        sender.sendMessage(ChatColor.GOLD + "  /guest unstuck" + ChatColor.GRAY + " is teleport to bed spawn or world spawn");
+        sender.sendMessage(ChatColor.GOLD + "  /guest nudge" + ChatColor.GRAY + " is teleport 10 blocks upward (30s cooldown)");
         sender.sendMessage(ChatColor.GOLD + "Authentication:");
-        sender.sendMessage(ChatColor.YELLOW + "  /register <password>" + ChatColor.GRAY + " to register an offline account");
-        sender.sendMessage(ChatColor.YELLOW + "  /login <password> [2fa-code]" + ChatColor.GRAY + " to log in");
-        sender.sendMessage(ChatColor.YELLOW + "  /2fa <enable|confirm|disable> [code]" + ChatColor.GRAY + " to manage 2FA");
+        sender.sendMessage(ChatColor.GOLD + "  /register <password>" + ChatColor.GRAY + " to register an offline account");
+        sender.sendMessage(ChatColor.GOLD + "  /login <password> [2fa-code]" + ChatColor.GRAY + " to log in");
+        sender.sendMessage(ChatColor.GOLD + "  /2fa <enable|confirm|disable> [code]" + ChatColor.GRAY + " to manage 2FA");
     }
 }
