@@ -46,7 +46,7 @@ final class VisitorModeCommand implements CommandExecutor, TabCompleter {
 
     private void handleReload(CommandSender sender) {
         plugin.reload();
-        sender.sendMessage(ChatColor.GREEN + "Censera's Eye config reloaded.");
+        sender.sendMessage(ChatColor.GREEN + "Censera's Eye config reloaded");
         plugin.getLogger().info(sender.getName() + " reloaded Censera's Eye config");
     }
 
