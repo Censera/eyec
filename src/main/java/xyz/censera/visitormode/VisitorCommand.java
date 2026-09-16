@@ -23,12 +23,12 @@ final class VisitorCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(ChatColor.GRAY + "Players only.");
+            sender.sendMessage(ChatColor.GRAY + "Players only");
             return true;
         }
 
         if (!plugin.getRegistry().contains(player.getUniqueId())) {
-            player.sendMessage(ChatColor.RED + "This command is only available in Visitor Mode.");
+            player.sendMessage(ChatColor.RED + "This command is only available in Visitor Mode");
             return true;
         }
 
@@ -47,7 +47,7 @@ final class VisitorCommand implements CommandExecutor {
 
     private void unstuck(Player player) {
         plugin.moveVisitorToSafeLocation(player);
-        player.sendMessage(ChatColor.GREEN + "Teleported to a safe location.");
+        player.sendMessage(ChatColor.GREEN + "Teleported to a safe location");
     }
 
     private void nudge(Player player) {
@@ -56,23 +56,23 @@ final class VisitorCommand implements CommandExecutor {
         long remaining = NUDGE_COOLDOWN_MS - (now - last);
         if (remaining > 0) {
             player.sendMessage(ChatColor.GOLD + "Nudge is on cooldown for "
-                    + ((remaining + 999) / 1000) + " seconds.");
+                    + ((remaining + 999) / 1000) + " seconds");
             return;
         }
 
         Location target = player.getLocation().clone().add(0, 10, 0);
         if (!plugin.isWithinVisitorBoundary(player, target)) {
-            player.sendMessage(ChatColor.RED + "You cannot move outside Visitor Mode's safe area.");
+            player.sendMessage(ChatColor.RED + "You cannot move outside Visitor Mode's safe area");
             return;
         }
         player.teleport(target);
         nudgeCooldowns.put(player.getUniqueId(), now);
-        player.sendMessage(ChatColor.GREEN + "Nudged 10 blocks upward.");
+        player.sendMessage(ChatColor.GREEN + "Nudged 10 blocks upward");
     }
 
     private void sendUsage(Player player) {
         player.sendMessage(ChatColor.GOLD + "Visitor commands:");
-        player.sendMessage(ChatColor.GOLD + "  /guest unstuck" + ChatColor.GRAY + "  Return to a safe location.");
-        player.sendMessage(ChatColor.GOLD + "  /guest nudge" + ChatColor.GRAY + "  Teleport 10 blocks upward. 30 second cooldown.");
+        player.sendMessage(ChatColor.GOLD + "  /guest unstuck" + ChatColor.GRAY + "  Return to a safe location");
+        player.sendMessage(ChatColor.GOLD + "  /guest nudge" + ChatColor.GRAY + "  Teleport 10 blocks upward, 30 second cooldown");
     }
 }
