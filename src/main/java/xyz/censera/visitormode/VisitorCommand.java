@@ -23,7 +23,7 @@ final class VisitorCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Players only.");
+            sender.sendMessage(ChatColor.GRAY + "Players only.");
             return true;
         }
 
@@ -55,7 +55,7 @@ final class VisitorCommand implements CommandExecutor {
         long last = nudgeCooldowns.getOrDefault(player.getUniqueId(), 0L);
         long remaining = NUDGE_COOLDOWN_MS - (now - last);
         if (remaining > 0) {
-            player.sendMessage(ChatColor.YELLOW + "Nudge is on cooldown for "
+            player.sendMessage(ChatColor.GOLD + "Nudge is on cooldown for "
                     + ((remaining + 999) / 1000) + " seconds.");
             return;
         }
@@ -72,7 +72,7 @@ final class VisitorCommand implements CommandExecutor {
 
     private void sendUsage(Player player) {
         player.sendMessage(ChatColor.GOLD + "Visitor commands:");
-        player.sendMessage(ChatColor.YELLOW + "  /guest unstuck" + ChatColor.GRAY + "  Return to a safe location.");
-        player.sendMessage(ChatColor.YELLOW + "  /guest nudge" + ChatColor.GRAY + "  Teleport 10 blocks upward. 30 second cooldown.");
+        player.sendMessage(ChatColor.GOLD + "  /guest unstuck" + ChatColor.GRAY + "  Return to a safe location.");
+        player.sendMessage(ChatColor.GOLD + "  /guest nudge" + ChatColor.GRAY + "  Teleport 10 blocks upward. 30 second cooldown.");
     }
 }
