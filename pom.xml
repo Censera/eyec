@@ -7,7 +7,7 @@
 
     <groupId>xyz.censera</groupId>
     <artifactId>eyec</artifactId>
-    <version>5.2.2</version>
+    <version>5.2.3</version>
     <packaging>jar</packaging>
 
     <name>Censera's Eye</name>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>26.2.build.119-stable</version>
+            <version>26.3-rc-3.build.1-alpha</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
