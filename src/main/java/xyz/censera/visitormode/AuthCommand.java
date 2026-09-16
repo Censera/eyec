@@ -52,7 +52,7 @@ final class AuthCommand implements CommandExecutor {
                         player.sendMessage(ChatColor.GREEN + "Registered and logged in!");
                         player.sendMessage(ChatColor.GOLD + "You are not whitelisted, so Visitor Mode remains active");
                     } else {
-                        player.sendMessage(ChatColor.GREEN + "Registered and logged in. Enjoy!");
+                        player.sendMessage(ChatColor.GREEN + "Registered and logged in");
                     }
                 }
                 case "already-registered" -> player.sendMessage(ChatColor.RED + "You are already registered");
