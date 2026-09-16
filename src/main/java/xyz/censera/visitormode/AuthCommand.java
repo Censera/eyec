@@ -23,7 +23,7 @@ final class AuthCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Players only");
+            sender.sendMessage(ChatColor.GRAY + "Players only");
             return true;
         }
 
@@ -37,7 +37,7 @@ final class AuthCommand implements CommandExecutor {
 
     private boolean register(Player player, String[] args) {
         if (args.length != 1) {
-            player.sendMessage(ChatColor.YELLOW + "Usage: /register <password>");
+            player.sendMessage(ChatColor.GOLD + "Usage: /register <password>");
             return true;
         }
         if (args[0].length() < 8) {
@@ -65,7 +65,7 @@ final class AuthCommand implements CommandExecutor {
 
     private boolean login(Player player, String[] args) {
         if (args.length < 1 || args.length > 2) {
-            player.sendMessage(ChatColor.YELLOW + "Usage: /login <password> [Optional 2FA code]");
+            player.sendMessage(ChatColor.GOLD + "Usage: /login <password> [Optional 2FA code]");
             return true;
         }
         plugin.getAuth().login(player, args[0], args.length == 2 ? args[1] : null, result -> {
@@ -114,17 +114,17 @@ final class AuthCommand implements CommandExecutor {
                 return true;
             }
 
-            Component open = Component.text("[Open 2FA setup page]", NamedTextColor.AQUA)
+            Component open = Component.text("[Open 2FA setup page]", NamedTextColor.GOLD)
                     .decorate(TextDecoration.UNDERLINED)
                     .clickEvent(ClickEvent.openUrl(url))
-                    .hoverEvent(HoverEvent.showText(Component.text("Open the temporary setup page")));
-            Component copy = Component.text("[Copy setup key]", NamedTextColor.AQUA)
+                    .hoverEvent(HoverEvent.showText(Component.text("Open the temporary setup page", NamedTextColor.GRAY)));
+            Component copy = Component.text("[Copy setup key]", NamedTextColor.GOLD)
                     .decorate(TextDecoration.UNDERLINED)
                     .clickEvent(ClickEvent.copyToClipboard(secret))
-                    .hoverEvent(HoverEvent.showText(Component.text("Copy the setup key")));
+                    .hoverEvent(HoverEvent.showText(Component.text("Copy the setup key", NamedTextColor.GRAY)));
 
             player.sendMessage(Component.text().append(open).append(Component.text("  ")).append(copy).build());
-            player.sendMessage(ChatColor.YELLOW + "Add the account with your authenticator, then use /2fa confirm <code>");
+            player.sendMessage(ChatColor.GOLD + "Add the account with your authenticator, then use /2fa confirm <code>");
             return true;
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("confirm")) {
@@ -143,7 +143,7 @@ final class AuthCommand implements CommandExecutor {
             }
             return true;
         }
-        player.sendMessage(ChatColor.YELLOW + "Usage: /2fa <enable|confirm|disable> [code]");
+        player.sendMessage(ChatColor.GOLD + "Usage: /2fa <enable|confirm|disable> [code]");
         return true;
     }
 }
