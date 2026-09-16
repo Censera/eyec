@@ -2,32 +2,32 @@ name: eyec
 version: "${project.version}"
 main: xyz.censera.visitormode.VisitorMode
 api-version: "26.2"
-description: Authentication, trust, and world protection for offline-mode Paper servers.
+description: "${project.description}"
 authors: [Censera]
 softdepend: [floodgate, FastLogin, Geyser-Spigot, ViaVersion, ViaBackwards]
 
 commands:
   eyec:
-    description: Censera's Eye administration commands.
+    description: Censera's Eye administration commands
     usage: /eyec <reload|list|kick-visitors>
     permission: eyec.admin
   guest:
-    description: Visitor utility commands.
+    description: Visitor utility commands
     usage: /guest <unstuck|nudge>
   register:
-    description: Register your offline-mode account.
+    description: Register your offline mode account
     usage: /register <password>
   login:
-    description: Log in to your offline-mode account.
+    description: Log in to your offline mode account
     usage: /login <password> [2fa-code]
   2fa:
-    description: Manage two-factor authentication.
+    description: Manage two-factor authentication
     usage: /2fa <enable|confirm|disable> [code]
 
 permissions:
   eyec.admin:
-    description: Access to all /eyec administration commands.
+    description: Access to all /eyec administration commands
     default: op
   eyec.bypass:
-    description: Skip eyec authentication and visitor restrictions.
+    description: Skip eyec authentication and visitor restrictions
     default: op
