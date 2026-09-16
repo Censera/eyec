@@ -1,7 +1,7 @@
 name: eyec
 version: "${project.version}"
 main: xyz.censera.visitormode.VisitorMode
-api-version: "26.2"
+api-version: "26.3"
 description: "${project.description}"
 authors: [Censera]
 softdepend: [floodgate, FastLogin, Geyser-Spigot, ViaVersion, ViaBackwards]
