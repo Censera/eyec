@@ -15,8 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class VisitorMode extends JavaPlugin {
     private static final double VISITOR_GRID_SIZE = 400.0;
-    private static final double VISITOR_RADIUS = VISITOR_GRID_SIZE / 2.0;
-    private static final double VISITOR_RADIUS_SQUARED = VISITOR_RADIUS * VISITOR_RADIUS;
+    private static final double VISITOR_HALF_SIZE = VISITOR_GRID_SIZE / 2.0;
 
     private VisitorRegistry registry;
     private PluginConfig pluginConfig;
@@ -118,7 +117,7 @@ public final class VisitorMode extends JavaPlugin {
     }
 
     private Location findSafeLocation(Location center, World world) {
-        if (isValidVisitorLocation(center, world)) return center;
+        if (isValidVisitorLocation(center, world, center)) return center;
 
         int baseX = center.getBlockX();
         int baseZ = center.getBlockZ();
@@ -130,39 +129,36 @@ public final class VisitorMode extends JavaPlugin {
                     int blockZ = baseZ + z;
                     int y = world.getHighestBlockYAt(blockX, blockZ) + 1;
                     Location candidate = new Location(world, blockX + 0.5, y, blockZ + 0.5);
-                    if (isValidVisitorLocation(candidate, world)) return candidate;
+                    if (isValidVisitorLocation(candidate, world, center)) return candidate;
                 }
             }
         }
         return null;
     }
 
-    private boolean isValidVisitorLocation(Location location, World world) {
-        if (location == null || world == null || location.getWorld() != world) return false;
-        return isWithinVisitorBoundary(location)
+    private boolean isValidVisitorLocation(Location location, World world, Location center) {
+        if (location == null || world == null || center == null || location.getWorld() != world) return false;
+        return isWithinVisitorBoundary(center, location)
                 && !isDangerous(location)
                 && location.getBlock().isPassable()
                 && location.clone().add(0, 1, 0).getBlock().isPassable();
     }
 
     boolean isWithinVisitorBoundary(Player player, Location location) {
-        return isWithinVisitorBoundary(location) && sameVisitorCell(player.getLocation(), location);
+        if (player == null || location == null || player.getWorld() != location.getWorld()) return false;
+        return isWithinVisitorBoundary(visitorCellCenter(player.getLocation()), location);
     }
 
-    private boolean isWithinVisitorBoundary(Location location) {
-        if (location == null || location.getWorld() == null) return false;
-        Location center = visitorCellCenter(location);
-        double dx = location.getX() - center.getX();
-        double dz = location.getZ() - center.getZ();
-        return dx * dx + dz * dz <= VISITOR_RADIUS_SQUARED;
-    }
-
-    private boolean sameVisitorCell(Location first, Location second) {
-        if (first == null || second == null || first.getWorld() != second.getWorld()) return false;
-        Location firstCenter = visitorCellCenter(first);
-        Location secondCenter = visitorCellCenter(second);
-        return firstCenter.getX() == secondCenter.getX()
-                && firstCenter.getZ() == secondCenter.getZ();
+    private boolean isWithinVisitorBoundary(Location center, Location location) {
+        if (center == null || location == null || center.getWorld() != location.getWorld()) return false;
+        double minX = center.getX() - VISITOR_HALF_SIZE;
+        double maxX = center.getX() + VISITOR_HALF_SIZE;
+        double minZ = center.getZ() - VISITOR_HALF_SIZE;
+        double maxZ = center.getZ() + VISITOR_HALF_SIZE;
+        return location.getX() >= minX
+                && location.getX() <= maxX
+                && location.getZ() >= minZ
+                && location.getZ() <= maxZ;
     }
 
     private Location visitorCellCenter(Location location) {
@@ -170,16 +166,16 @@ public final class VisitorMode extends JavaPlugin {
         if (world == null) return location.clone();
 
         Location spawn = world.getSpawnLocation();
-        double originX = spawn.getX() - VISITOR_RADIUS;
-        double originZ = spawn.getZ() - VISITOR_RADIUS;
+        double originX = spawn.getX() - VISITOR_HALF_SIZE;
+        double originZ = spawn.getZ() - VISITOR_HALF_SIZE;
         long cellX = (long) Math.floor((location.getX() - originX) / VISITOR_GRID_SIZE);
         long cellZ = (long) Math.floor((location.getZ() - originZ) / VISITOR_GRID_SIZE);
 
         return new Location(
                 world,
-                originX + cellX * VISITOR_GRID_SIZE + VISITOR_RADIUS,
+                originX + cellX * VISITOR_GRID_SIZE + VISITOR_HALF_SIZE,
                 location.getY(),
-                originZ + cellZ * VISITOR_GRID_SIZE + VISITOR_RADIUS);
+                originZ + cellZ * VISITOR_GRID_SIZE + VISITOR_HALF_SIZE);
     }
 
     private boolean isDangerous(Location location) {
