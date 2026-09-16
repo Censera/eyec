@@ -2,7 +2,7 @@
 # Authentication protects player accounts. Visitor restrictions protect the world.
 # Full access requires both authentication and server trust through whitelisting.
 
-visitor-join-message: "&6Welcome, &f%player%&6! You are currently untrusted and restricted to Visitor Mode"
+visitor-join-message: "&6Welcome, &7%player%&6! You are currently untrusted and restricted to Visitor Mode"
 upgrade-message: "&aYou are authenticated and trusted. Enjoy!"
 broadcast-on-upgrade: ""
 upgrade-gamemode: SURVIVAL
