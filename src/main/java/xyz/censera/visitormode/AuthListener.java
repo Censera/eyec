@@ -97,7 +97,7 @@ final class AuthListener implements Listener {
                 && !command.startsWith("/guest ") && !command.equals("/guest")
                 && !command.startsWith("/eyec ") && !command.equals("/eyec")) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.RED + "You must authenticate first.");
+            player.sendMessage(ChatColor.RED + "You must authenticate first");
         }
     }
 }
