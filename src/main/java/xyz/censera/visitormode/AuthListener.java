@@ -47,9 +47,9 @@ final class AuthListener implements Listener {
                 plugin.getAuthenticated().add(uuid);
                 player.sendMessage(ChatColor.GREEN + "Premium account authenticated");
             } else if (plugin.getAuth().isRegistered(uuid)) {
-                player.sendMessage(ChatColor.YELLOW + "Please log in with /login <password> [2fa-code]");
+                player.sendMessage(ChatColor.GOLD + "Please log in with /login <password> [2fa-code]");
             } else {
-                player.sendMessage(ChatColor.YELLOW + "Please register with /register <password> or log in with /login <password>");
+                player.sendMessage(ChatColor.GOLD + "Please register with /register <password> or log in with /login <password>");
             }
         }, 20L);
     }
